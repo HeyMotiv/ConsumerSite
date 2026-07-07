@@ -695,12 +695,20 @@ input,select{font-family:var(--font-body)}
 .foot-links{display:flex;flex-wrap:wrap;gap:10px 26px;font-size:14px;font-weight:500}
 .foot-links a{text-decoration:none;color:rgba(254,252,250,0.7)}
 .foot-links a:hover{color:var(--white)}
-.foot-creator-link{color:var(--sand)!important;font-weight:600}
+.foot-dot{color:rgba(254,252,250,0.3)}
+.foot-ig{display:inline-flex;align-items:center;gap:6px}
+.foot-ig svg{opacity:.8}
 .foot-base{
-  margin-top:34px;padding-top:22px;border-top:1px solid rgba(254,252,250,0.1);
-  font-size:12.5px;color:rgba(254,252,250,0.4);
-  display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;
+  margin-top:30px;padding-top:22px;border-top:1px solid rgba(254,252,250,0.1);
+  display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;justify-content:space-between;
 }
+.foot-creator-row{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px}
+.foot-creator-label{color:rgba(254,252,250,0.5);font-weight:500}
+.foot-creator-row a{text-decoration:none}
+.foot-creator-row .foot-creator-link{color:var(--sand)!important;font-weight:600}
+.foot-creator-row .foot-ig{color:rgba(254,252,250,0.7)}
+.foot-creator-row a:hover{color:var(--white)}
+.foot-copy{font-size:12.5px;color:rgba(254,252,250,0.4)}
 
 /* ---------- legal overlays ---------- */
 .legal-page{
@@ -953,7 +961,7 @@ input,select{font-family:var(--font-body)}
     <article class="jcard">
       <span class="jnum">Every week</span>
       <div class="jscreen js-video">
-        <img class="jv-photo" src="images/creator-09.jpg" alt="">
+        <img class="jv-photo" src="images/video-creator.jpg" alt="">
         <div class="jv-scrim"></div>
         <div class="play-btn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6V18L18.5 12L9 6Z" fill="#2B2E34"/></svg>
@@ -1189,7 +1197,7 @@ input,select{font-family:var(--font-body)}
         <p class="foot-tag">Movement challenges with creators you adore.</p>
       </div>
       <nav class="foot-links" aria-label="Footer">
-        <a class="foot-creator-link" href="https://heymotiv.com" target="_blank" rel="noopener">Are you a creator? Check out heymotiv.com</a>
+        <a class="foot-ig" href="https://www.instagram.com/motivcollabs/" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.8" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3.8" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="7" r="1.2" fill="currentColor"/></svg>Follow @motivcollabs</a>
         <a href="#updates">Get updates</a>
         <a href="#nominate">Nominate a creator</a>
         <a href="#privacy">Privacy</a>
@@ -1197,8 +1205,13 @@ input,select{font-family:var(--font-body)}
       </nav>
     </div>
     <div class="foot-base">
-      <span>© 2026 Motiv. All rights reserved.</span>
-      <span>collabswith.com is part of Motiv</span>
+      <span class="foot-creator-row">
+        <span class="foot-creator-label">Are you a creator?</span>
+        <a class="foot-creator-link" href="https://heymotiv.com" target="_blank" rel="noopener">heymotiv.com</a>
+        <span class="foot-dot">·</span>
+        <a class="foot-ig" href="https://www.instagram.com/hey_motiv/" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.8" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3.8" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="7" r="1.2" fill="currentColor"/></svg>@hey_motiv</a>
+      </span>
+      <span class="foot-copy">© 2026 Motiv · collabswith.com is part of Motiv</span>
     </div>
   </div>
 </footer>
