@@ -1438,6 +1438,7 @@ You can disconnect a device or account in the app when you are not in an active 
   var nomBar = document.getElementById('nom-bar');
   var nomTrigger = document.querySelector('.bridge');   // "They inspire you every day"
   var nomSection = document.getElementById('nominate'); // the actual nominate form section
+  var nomFooter = document.querySelector('.site-footer');
   var nomDismissed = false;
   nomBar.hidden = false;
   var nomVisible = false;
@@ -1449,7 +1450,9 @@ You can disconnect a device or account in the app when you are not in an active 
     // ...but hide while the nominate form itself is on screen (no redundant CTA)
     var f = nomSection.getBoundingClientRect();
     var formOnScreen = f.top < window.innerHeight && f.bottom > 0;
-    var show = reached && !formOnScreen;
+    // ...and while the footer is on screen, so the bar never covers the legal statement
+    var footOnScreen = nomFooter.getBoundingClientRect().top < window.innerHeight;
+    var show = reached && !formOnScreen && !footOnScreen;
     if (show !== nomVisible) { nomVisible = show; nomBar.classList.toggle('show', show); }
   }
   window.addEventListener('scroll', nomBarSync, { passive: true });
