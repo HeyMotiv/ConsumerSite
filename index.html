@@ -739,6 +739,9 @@ input,select{font-family:var(--font-body)}
 .legal-body ul{padding-left:22px;margin-bottom:12px}
 .legal-body li{margin-bottom:6px}
 .legal-body a{color:var(--clay)}
+.del-card{background:var(--blush);border-radius:var(--radius-xl);padding:26px 22px;margin:8px 0 28px}
+.del-card .form-success{max-width:none}
+.legal-body .del-card .form-err{font-size:13px;color:var(--boundary);margin:-6px 0 0}
 .legal-table-wrap{overflow-x:auto;margin:4px 0 16px}
 .legal-table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.55;color:var(--text-mid)}
 .legal-table th, .legal-table td{border:1px solid rgba(43,46,52,0.18);padding:10px 12px;text-align:left;vertical-align:top}
@@ -776,6 +779,11 @@ input,select{font-family:var(--font-body)}
 <form name="creator-nominations" data-netlify="true" netlify-honeypot="bot-field" hidden>
   <input type="text" name="handle">
   <input type="text" name="platform">
+  <input type="text" name="bot-field">
+</form>
+<form name="account-deletion" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="name">
+  <input type="email" name="email">
   <input type="text" name="bot-field">
 </form>
 
@@ -1213,6 +1221,7 @@ input,select{font-family:var(--font-body)}
         <a href="#healthdata">Health Data</a>
         <a href="#privacy">Privacy</a>
         <a href="#terms">Terms</a>
+        <a href="#delete-account">Delete account</a>
       </nav>
     </div>
     <div class="foot-base">
@@ -1642,7 +1651,7 @@ input,select{font-family:var(--font-body)}
     <p>Lincoln, MA 01773</p>
     <p>United States</p>
     <h2 id="request">17. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?</h2>
-    <p>You have the right to request access to the personal information we collect from you, details about how we have processed it, correct inaccuracies, or delete your personal information. You may also have the right to withdraw your consent to our processing of your personal information. These rights may be limited in some circumstances by applicable law. To request to review, update, or delete your personal information, please email <a href="mailto:privacy@heymotiv.com">privacy@heymotiv.com</a>.</p>
+    <p>You have the right to request access to the personal information we collect from you, details about how we have processed it, correct inaccuracies, or delete your personal information. You may also have the right to withdraw your consent to our processing of your personal information. These rights may be limited in some circumstances by applicable law. To request to review, update, or delete your personal information, please email <a href="mailto:privacy@heymotiv.com">privacy@heymotiv.com</a>. To delete your Motiv Collabs account and its data, use the in-app option or our <a href="#delete-account">account deletion request form</a>.</p>
     <p>This Privacy Policy was created using Termly's <a href="https://termly.io/products/privacy-policy-generator/" target="_blank" rel="noopener">Privacy Policy Generator</a></p>
   </div>
 </div>
@@ -1981,6 +1990,69 @@ input,select{font-family:var(--font-body)}
   </div>
 </div>
 
+<!-- ============ DELETE ACCOUNT (overlay page) ============ -->
+<div class="legal-page" id="delete-account" role="dialog" aria-modal="true" aria-labelledby="delete-account-title">
+  <div class="legal-head">
+    <span class="t" id="delete-account-title">Delete your account</span>
+    <button class="legal-close" data-close-legal>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2L12 12M12 2L2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      Close
+    </button>
+  </div>
+  <div class="legal-body">
+    <h1>Delete your Motiv Collabs account</h1>
+    <p class="upd">Motiv Collabs is an app by Motiv LLC.</p>
+    <p>You can ask us to delete your Motiv Collabs account and its data here. You don't need the app installed.</p>
+
+    <div class="del-card">
+      <div class="form-wrap" id="delete-form-wrap">
+        <form class="form-stack" data-netlify-name="account-deletion" novalidate>
+          <div>
+            <label class="field-label" for="del-name">Your name</label>
+            <input class="text-input" id="del-name" type="text" name="name" required autocomplete="name">
+          </div>
+          <div>
+            <label class="field-label" for="del-email">Email on your account</label>
+            <input class="text-input" id="del-email" type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+          </div>
+          <p class="form-err">Add your name and the email you signed up with.</p>
+          <button class="btn" type="submit">Request deletion</button>
+        </form>
+        <div class="form-success" role="status">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="#8FA6A0" stroke-width="1.5"/><path d="M6.5 10.3L9 12.8L13.8 7.5" stroke="#8FA6A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Request received. We'll email you to confirm it's your account before we delete it.
+        </div>
+      </div>
+    </div>
+
+    <h2>How to request deletion</h2>
+    <ul>
+      <li><strong>On this page:</strong> enter your name and the email address on your account, then tap Request deletion. We'll email that address to confirm the request came from you.</li>
+      <li><strong>In the app:</strong> go to Profile, open Settings, and tap Delete account.</li>
+      <li><strong>By email:</strong> write to <a href="mailto:privacy@heymotiv.com?subject=Delete%20my%20Motiv%20Collabs%20account">privacy@heymotiv.com</a> from the address on your account.</li>
+    </ul>
+    <p>If you have a hold you can still request back from a finished collab, request it in the app before deleting your account.</p>
+
+    <h2>When it happens</h2>
+    <p>We delete your account within 7 to 14 days of confirming your request, and email you when it's done. Until then you can't sign in or create a new account with that email. Deletion can't be undone; coming back means starting a new account.</p>
+
+    <h2>What we delete</h2>
+    <ul>
+      <li>Your account and profile, including your name, email address and photo</li>
+      <li>Your collab history, goals and progress</li>
+      <li>Activity, fitness and health data synced from your wearable or health app</li>
+      <li>Your connections to wearables and health apps</li>
+    </ul>
+
+    <h2>What we keep, and for how long</h2>
+    <ul>
+      <li><strong>Payment and transaction records</strong> (amounts, dates and payment references, not your full card details) for as long as tax, accounting and anti-fraud laws require. Card details are held by our payment processor, Stripe, under <a href="https://stripe.com/privacy" target="_blank" rel="noopener">its own privacy policy</a>.</li>
+      <li><strong>Backups:</strong> copies in backup archives are isolated from any use and removed as those backups expire.</li>
+    </ul>
+    <p>See <a href="#privacy">our Privacy Policy</a> for more on how we handle your data. Questions? Email <a href="mailto:privacy@heymotiv.com">privacy@heymotiv.com</a>.</p>
+  </div>
+</div>
+
 <script>
 (function(){
   /* ---------- scroll reveal ---------- */
@@ -2032,6 +2104,12 @@ input,select{font-family:var(--font-body)}
         if (!emailRe.test(email)) { wrap.classList.add('error'); return; }
         payload.email = email;
         payload.source = form.getAttribute('data-source') || '';
+      } else if (name === 'account-deletion') {
+        var fullName = (form.querySelector('input[name="name"]').value || '').trim();
+        var accountEmail = (form.querySelector('input[name="email"]').value || '').trim();
+        if (!fullName || !emailRe.test(accountEmail)) { wrap.classList.add('error'); return; }
+        payload.name = fullName;
+        payload.email = accountEmail;
       } else {
         var handle = (form.querySelector('input[name="handle"]').value || '').trim();
         if (!handle) { wrap.classList.add('error'); return; }
@@ -2116,7 +2194,7 @@ input,select{font-family:var(--font-body)}
   });
 
   /* ---------- legal overlays via hash ---------- */
-  var pages = { privacy: document.getElementById('privacy'), terms: document.getElementById('terms'), healthdata: document.getElementById('healthdata') };
+  var pages = { privacy: document.getElementById('privacy'), terms: document.getElementById('terms'), healthdata: document.getElementById('healthdata'), 'delete-account': document.getElementById('delete-account') };
   function syncLegal(){
     var h = location.hash.replace('#','');
     var anyOpen = false;
