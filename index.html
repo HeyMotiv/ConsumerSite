@@ -718,6 +718,7 @@ input,select{font-family:var(--font-body)}
   background:var(--white);overflow-y:auto;-webkit-overflow-scrolling:touch;
 }
 .legal-page.open{display:block}
+.legal-page:focus{outline:none}
 .legal-head{
   position:sticky;top:0;background:rgba(254,252,250,0.92);
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
@@ -1221,6 +1222,7 @@ input,select{font-family:var(--font-body)}
         <a href="#healthdata">Health Data</a>
         <a href="#privacy">Privacy</a>
         <a href="#terms">Terms</a>
+        <a href="#support">Support</a>
         <a href="#delete-account">Delete account</a>
       </nav>
     </div>
@@ -1990,6 +1992,41 @@ input,select{font-family:var(--font-body)}
   </div>
 </div>
 
+<!-- ============ SUPPORT (overlay page) ============ -->
+<div class="legal-page" id="support" role="dialog" aria-modal="true" aria-labelledby="support-title">
+  <div class="legal-head">
+    <span class="t" id="support-title">Support</span>
+    <button class="legal-close" data-close-legal>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2L12 12M12 2L2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      Close
+    </button>
+  </div>
+  <div class="legal-body">
+    <h1>Support</h1>
+    <p>We're here to help. Email us at <a href="mailto:support@heymotiv.com">support@heymotiv.com</a> and we'll get back to you within two business days.</p>
+
+    <h2>Frequently asked questions</h2>
+    <h3>How do I join a collab?</h3>
+    <p>Tap the link in your creator's post, download Motiv Collabs, and create your account. Then connect your device, review your personal goal, and place your hold.</p>
+    <h3>What is a hold?</h3>
+    <p>A hold is money you set aside when you join a collab. It's charged 24 hours after you accept your goal. Meet your weekly goals and you can get it back in full, plus rewards.</p>
+    <h3>Can I cancel after I join?</h3>
+    <p>Yes, within 24 hours of accepting your goal. You'll get back both your hold and the service fee. After that, your hold and service fee are charged and you're in for the full collab.</p>
+    <h3>How do I get my hold back?</h3>
+    <p>Results are final 48 to 72 hours after your collab ends. If you met your goals, tap "Get your hold back" in your Profile. It's returned to the card you used. You need to request it within 180 days of results being final.</p>
+    <h3>What happens if I miss a weekly goal?</h3>
+    <p>Week 1 is a practice week, so it doesn't count. From week 2 on, missing your weekly total or your push days in any week means your hold isn't returned and you won't earn rewards. You can still stay in the collab and keep moving with the group. Holds aren't returned for illness, injury, or device problems.</p>
+    <h3>Which devices work with Motiv?</h3>
+    <p>Apple Health on iPhone, plus Fitbit, Garmin, Oura, and Withings. You need at least 7 days of recent activity so we can build your personal goals.</p>
+    <h3>How do rewards and bonuses work?</h3>
+    <p>Rewards can be redeemed as gift cards in $20 amounts from the app. Any amount under $20 stays in your rewards balance. MVPs chosen by the creator can earn cash bonuses, paid by PayPal or Venmo.</p>
+    <h3>How do I delete my account?</h3>
+    <p>You can delete your account in the app from your Profile, or use our <a href="#delete-account">account deletion page</a>.</p>
+    <h3>Still need help?</h3>
+    <p>Email <a href="mailto:support@heymotiv.com">support@heymotiv.com</a>. Please include the email address on your Motiv account so we can find it quickly.</p>
+  </div>
+</div>
+
 <!-- ============ DELETE ACCOUNT (overlay page) ============ -->
 <div class="legal-page" id="delete-account" role="dialog" aria-modal="true" aria-labelledby="delete-account-title">
   <div class="legal-head">
@@ -2194,19 +2231,56 @@ input,select{font-family:var(--font-body)}
   });
 
   /* ---------- legal overlays via hash ---------- */
-  var pages = { privacy: document.getElementById('privacy'), terms: document.getElementById('terms'), healthdata: document.getElementById('healthdata'), 'delete-account': document.getElementById('delete-account') };
+  var pages = { privacy: document.getElementById('privacy'), terms: document.getElementById('terms'), healthdata: document.getElementById('healthdata'), 'delete-account': document.getElementById('delete-account'), support: document.getElementById('support') };
+  var openPage = null;
+  var returnFocusTo = null;
+  /* history entries this visit has added on top of the landing page; a panel opened by a pasted deep link has none behind it, so history.back() would leave the site */
+  var inSiteDepth = 0;
+  var closingWithBack = false;
+  Object.keys(pages).forEach(function(k){ pages[k].setAttribute('tabindex', '-1'); });
   function syncLegal(){
     var h = location.hash.replace('#','');
-    var anyOpen = false;
-    Object.keys(pages).forEach(function(k){
-      var open = (h === k);
-      pages[k].classList.toggle('open', open);
-      if (open) { anyOpen = true; pages[k].scrollTop = 0; }
-    });
-    document.body.style.overflow = anyOpen ? 'hidden' : '';
+    var next = pages[h] || null;
+    if (next === openPage) return;
+    Object.keys(pages).forEach(function(k){ pages[k].classList.toggle('open', pages[k] === next); });
+    openPage = next;
+    document.body.style.overflow = next ? 'hidden' : '';
+    if (next) {
+      next.scrollTop = 0;
+      next.focus();
+    } else if (returnFocusTo && document.contains(returnFocusTo)) {
+      returnFocusTo.focus();
+      returnFocusTo = null;
+    }
   }
-  window.addEventListener('hashchange', syncLegal);
+  /* the browser blurs the clicked link while jumping to the still-hidden panel, so remember it at click time */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (a && !openPage && pages[a.getAttribute('href').slice(1)]) { returnFocusTo = a; }
+  }, true);
+  window.addEventListener('hashchange', function(){
+    if (closingWithBack) { inSiteDepth--; closingWithBack = false; } else { inSiteDepth++; }
+    syncLegal();
+  });
   syncLegal();
+  function closeLegal(){
+    if (inSiteDepth > 0) { closingWithBack = true; history.back(); }
+    else { location.hash = ''; }
+  }
+  /* keep Tab and Shift+Tab inside the open panel, as aria-modal promises */
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Tab' || !openPage) return;
+    var focusables = Array.prototype.filter.call(
+      openPage.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), textarea, select'),
+      function(el){ return el.offsetParent !== null; }
+    );
+    if (!focusables.length) { e.preventDefault(); return; }
+    var first = focusables[0];
+    var last = focusables[focusables.length - 1];
+    if (e.shiftKey && (document.activeElement === first || document.activeElement === openPage)) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    else if (!openPage.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+  });
   /* in-page links inside a legal overlay (e.g. the policy's table of contents) scroll within it instead of changing the hash, which would close the overlay */
   Object.keys(pages).forEach(function(k){
     pages[k].addEventListener('click', function(e){
@@ -2222,15 +2296,10 @@ input,select{font-family:var(--font-body)}
     });
   });
   document.querySelectorAll('[data-close-legal]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      if (history.length > 1) { history.back(); }
-      else { location.hash = ''; }
-    });
+    btn.addEventListener('click', closeLegal);
   });
   document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape' && Object.keys(pages).some(function(k){ return pages[k].classList.contains('open'); })) {
-      location.hash = '';
-    }
+    if (e.key === 'Escape' && openPage) { closeLegal(); }
   });
 })();
 </script>
