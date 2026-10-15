@@ -1,0 +1,22 @@
+{
+  "documents": [
+    {
+      "path": "index.html",
+      "title": "Terms of Service",
+      "folder_id": "1i-FSPjz6LKZVO1X-n5lsodfnQs8rEz32",
+      "selector": "#terms .legal-body"
+    },
+    {
+      "path": "index.html",
+      "title": "Privacy Policy",
+      "folder_id": "1RzZLbKuUxxgdPMjOw2YCQT-EYDssPQoJ",
+      "selector": "#privacy .legal-body"
+    },
+    {
+      "path": "index.html",
+      "title": "Motiv Consumer Health Data Privacy Policy",
+      "folder_id": "1KVK69ODvd0SXy0DDQIMCvslxB6G-k5JS",
+      "selector": "#healthdata .legal-body"
+    }
+  ]
+}
